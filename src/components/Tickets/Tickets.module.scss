@@ -1,0 +1,48 @@
+.tickets {
+  width: 502px;
+  height: 184px;
+  background: #ffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 20px;
+  &__header {
+    padding: 20px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__info {
+    span {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #4a4a4a;
+    }
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 0 20px;
+  }
+  li {
+    margin-right: 48px;
+    width: 94px;
+  }
+  h3 {
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #a0b0b9;
+  }
+  &__cost {
+    color: #2196f3;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+  }
+}
