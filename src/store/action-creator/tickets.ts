@@ -1,12 +1,12 @@
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { Dispatch } from 'redux';
-import { CountAction, CountActionType } from '../../types/count';
+// import { CountAction, CountActionType } from '../../types/count';
 import { FilterActionType, SortActionType } from '../../types/filter';
 import { TicketsAction, TiscketsActionType } from '../../types/tickets';
 import { TransfersAction, TransfersActionType } from '../../types/transfers';
 
-type SortCountType = CountAction | FilterActionType;
+type SortCountType = FilterActionType;
 
 export const requestTickets = (dispatch: Dispatch<TicketsAction>, id: string): void => {
     dispatch({ type: TiscketsActionType.FETH_TIKETS });
@@ -14,7 +14,7 @@ export const requestTickets = (dispatch: Dispatch<TicketsAction>, id: string): v
         .then((tickets) => {
             if (tickets.status === 500) {
                 requestTickets(dispatch, id);
-            } else if (tickets.status === 200) {
+            } else if (tickets.ok) {
                 return tickets.json();
             } else {
                 dispatch({ type: TiscketsActionType.FETH_TIKETS_ERROR, payload: true });
@@ -60,6 +60,5 @@ export const onCheckAllChange = (e: CheckboxChangeEvent) => {
 export const setFilter = (sort: string) => {
     return (dispatch: Dispatch<SortCountType>) => {
         dispatch({ type: SortActionType.SET_SORT, payload: sort });
-        dispatch({ type: CountActionType.RESET_COUNT, payload: 5 });
     };
 };

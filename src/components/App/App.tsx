@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Spin } from 'antd';
 
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -18,11 +18,20 @@ const api = new AviaSalesApi();
 function App() {
   const { ticketsData, loading, error } = useTypedSelector((state) => state.ticketsData);
   const { checkedList } = useTypedSelector((state) => state.transfersReducer);
-  const { count } = useTypedSelector((state) => state.count);
   const { sort } = useTypedSelector((state) => state.sort);
   const { asyncSetTickets } = useActions();
 
   const transfers = transfersSort(checkedList);
+
+  const [count, setCount] = useState(5)
+
+  const nextCount = () => {
+    setCount(prevState => prevState + 5 )
+  }
+
+  useEffect(() => {
+    setCount(5)
+  }, [checkedList, sort]);
 
   useEffect(() => {
     api.getSearchId().then((data) => {
@@ -30,7 +39,7 @@ function App() {
     });
   }, []);
 
-  const filterTicketsDataOne = useMemo(() => getFiltredTickets(ticketsData, transfers, sort), [transfers.length, sort]);
+  const filterTicketsDataOne = useMemo(() => getFiltredTickets(ticketsData, transfers, sort), [transfers.length, sort, ticketsData.length]);
 
   const filterTicketsData = filterTicketsDataOne.slice(0, count);
   return (
@@ -47,7 +56,7 @@ function App() {
                 <span className={app.nosearch}>БИЛЕТОВ С ДАННЫМ ЗАПРОСОМ НЕ НАЙДЕНО</span>
               ) : null}
               <TicketsList filterTicketsData={filterTicketsData} />
-              {filterTicketsData.length ? <TicketsShowMore /> : null}
+              {filterTicketsData.length ? <TicketsShowMore setCount={nextCount}/> : null}
             </>
           ) : (
             <span className={app.nosearch}>ПРОИЗОШЛА ОШИБКА</span>

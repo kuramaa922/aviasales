@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
 import sm from './TicketsShowMore.module.scss';
 
-const TicketsShowMore: FC = () => {
-  const dispatch = useDispatch();
+const TicketsShowMore: FC<props> = ({ setCount }) => {
+  // const dispatch = useDispatch();
   const addListTickets = (): void => {
-    dispatch({ type: 'ADD_COUNT', payload: 5 });
+      setCount()
+    // dispatch({ type: 'ADD_COUNT', payload: 5 });
   };
   return (
     <div className={sm.ticketsshowmore} onClick={addListTickets}>
@@ -18,3 +18,7 @@ const TicketsShowMore: FC = () => {
 };
 
 export default TicketsShowMore;
+
+interface props {
+    setCount: () => void
+}
