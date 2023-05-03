@@ -1,1 +1,1 @@
-https://aviasales-lvc347ljz-kuramaa922.vercel.app
+https://aviasales-blue-chi.vercel.app
